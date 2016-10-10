@@ -10,12 +10,23 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   
-  <servlet>
+	<servlet>
 		<servlet-name>YhdBlogAdmin</servlet-name>
 		<servlet-class>com.spring.controller.VerifyCodeServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>YhdBlogAdmin</servlet-name>
-		<url-pattern>/test/*</url-pattern>
+		<url-pattern>/xuan/*</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>YhdBlogAdmin2</servlet-name>
+		<servlet-class>com.spring.controller.ResultServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>YhdBlogAdmin2</servlet-name>
+		<url-pattern>/resultServlet/*</url-pattern>
+	</servlet-mapping>
+	
+	
 </web-app>

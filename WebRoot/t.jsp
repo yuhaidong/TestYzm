@@ -4,7 +4,54 @@
 <html>       
     <head>       
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>test verify code</title>  
+        <title>test verify code</title>
+
+		<script type="text/javascript" src="jquery-2.2.0.js"></script>
+        
+    	<script type="text/javascript">
+    	
+    	 function changeImg(){
+    		 
+    	    var imgSrc = $("#imgObj");     
+    	    var src = imgSrc.attr("src");     
+    	    imgSrc.attr("src",chgUrl(src));
+    	}     
+    	//时间戳     
+    	//为了使每次生成图片不一致，即不让浏览器读缓存，所以需要加上时间戳     
+    	function chgUrl(url){     
+    	    var timestamp = (new Date()).valueOf();     
+    	    urlurl = url.substring(0,17);     
+    	    if((url.indexOf("&")>=0)){     
+    	        urlurl = url + "×tamp=" + timestamp;     
+    	    }else{     
+    	        urlurl = url + "?timestamp=" + timestamp;     
+    	    }
+    	    
+    	    return urlurl;
+    	}     
+    	function isRightCode(){     
+    	    var code = "c=" + $("#veryCode").val();     
+    	    
+    	    $.ajax({     
+    	        type: "POST",     
+    	        url: "resultServlet/validateCode",     
+    	        data: code,     
+    	        success: callBackSuccess,
+    	        error: callBackError
+    	    });
+    	}
+
+    	function callBackSuccess(data){
+    	    $("#info").html(data);     
+    	}
+    	
+    	function callBackError() {
+    		alert("error");
+    	}
+    	
+    	</script>
+        
+        
     </head>  
     <body>       
         <input id="veryCode" name="veryCode" type="text"/>       
@@ -14,35 +61,4 @@
         <div id="info"></div>       
     </body>       
 </html>
-<script type="text/javascript">
- function changeImg(){     
-    var imgSrc = $("#imgObj");     
-    var src = imgSrc.attr("src");     
-    imgSrc.attr("src",chgUrl(src));     
-}     
-//时间戳     
-//为了使每次生成图片不一致，即不让浏览器读缓存，所以需要加上时间戳     
-function chgUrl(url){     
-    var timestamp = (new Date()).valueOf();     
-    urlurl = url.substring(0,17);     
-    if((url.indexOf("&")>=0)){     
-        urlurl = url + "×tamp=" + timestamp;     
-    }else{     
-        urlurl = url + "?timestamp=" + timestamp;     
-    }     
-    return url;     
-}     
-function isRightCode(){     
-    var code = $("#veryCode").attr("value");     
-    code = "c=" + code;     
-    $.ajax({     
-        type:"POST",     
-        url:"resultServlet/validateCode",     
-        data:code,     
-        success:callback     
-    });     
-}     
-function callback(data){     
-    $("#info").html(data);     
-}  
-</script>  
+  
